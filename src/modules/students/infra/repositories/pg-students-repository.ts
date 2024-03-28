@@ -8,6 +8,28 @@ export class pgStudentRepository implements StudentRepository {
     constructor( private readonly prismaCliente: PrismaService ) { }
 
     async create(studentData: StudentData) {
-        console.log(studentData);
+        const { courses, ...data} = studentData
+
+        const courseIds = courses.map(course => ({ id: course.id }))
+        
+        if(courseIds.length > 0) {
+            await this.prismaCliente.student.create({
+                data: {
+                    ...data,
+                    courses: {
+                        connect: courseIds
+                    }
+                }
+            })
+            
+            return;
+        }
+
+        await this.prismaCliente.student.create({
+            data: {
+                ...data
+            }
+        })
+
     }
 }

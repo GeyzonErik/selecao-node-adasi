@@ -21,5 +21,5 @@ export class createStudentDto implements StudentData{
         name: 'NodeApi com NestJS Avançado' 
     }]})
     @IsOptional()
-    course?: Array<Course>;
+    courses?: Array<Course>;
 }
