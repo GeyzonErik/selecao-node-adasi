@@ -8,8 +8,9 @@ datasource db {
 }
 
 model Course {
-  id       String    @id @unique @default(uuid())
-  name     String
+  id   String @id @unique @default(uuid())
+  name String
+
   students Student[]
 }
 
@@ -18,9 +19,8 @@ model Student {
   register String @unique
   name     String
 
-  course   Course  @relation(fields: [courseId], references: [id])
-  courseId String
-  Works    Works[]
+  courses Course[]
+  Works   Works[]
 }
 
 model Assignment {
