@@ -1,3 +1,5 @@
 export * from './create-course.service'
 export * from './get-courses.service'
 export * from './get-couse.by-id.service'
+export * from './update-course.service'
+export * from './delete-course.service'

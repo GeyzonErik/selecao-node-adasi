@@ -1,5 +1,5 @@
-import { CreateCourseData } from "../models";
+import { CourseData } from "../models";
 
 export abstract class CreateCourse {
-    execute: (createCourseData: CreateCourseData) => Promise<void>
+    execute: (CourseData: CourseData) => Promise<void>
 }

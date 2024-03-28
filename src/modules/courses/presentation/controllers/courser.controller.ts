@@ -1,8 +1,8 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
-import { CreateCourseDTO } from "../dto";
-import { CreateCourse, GetCourseById, GetCourses } from "../../domain/usecases";
+import { CreateCourseDTO, UpdateCourseDto } from "../dto";
+import { CreateCourse, DeleteCourse, GetCourseById, GetCourses, UpdateCourse } from "../../domain/usecases";
 
 @Controller('Courses')
 @ApiTags('Courses')
@@ -10,7 +10,9 @@ export class CoursesController {
     constructor(
         private readonly createCourse: CreateCourse,
         private readonly getCourses: GetCourses,
-        private readonly getCourseById: GetCourseById
+        private readonly getCourseById: GetCourseById,
+        private readonly updateCourse: UpdateCourse,
+        private readonly deleteCourse: DeleteCourse
     ) {}
 
     @Post()
@@ -24,7 +26,7 @@ export class CoursesController {
     }
 
     @Get()
-    async getAllCourses(@Res() res: Response) {
+    async get(@Res() res: Response) {
         try {
             const courses = await this.getCourses.execute();
             res.status(HttpStatus.OK).send(courses);
@@ -38,6 +40,26 @@ export class CoursesController {
         try {
             const course = await this.getCourseById.execute(id);
             res.status(HttpStatus.OK).send(course)
+        } catch(error) {
+            throw error
+        }
+    }
+
+    @Patch(':id')
+    async update(@Res() res: Response, @Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
+        try {
+            const updatedCourse = await this.updateCourse.execute(id, updateCourseDto);
+            res.status(HttpStatus.OK).send(updatedCourse)
+        } catch(error) {
+            throw error
+        }
+    }
+
+    @Delete(':id')
+    async delete(@Res() res: Response, @Param('id') id: string) {
+        try {
+            await this.deleteCourse.execute(id);
+            res.status(HttpStatus.OK).send()
         } catch(error) {
             throw error
         }

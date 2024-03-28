@@ -5,7 +5,7 @@ interface CourseInterface {
 }
 
 export class Course {
-    public readonly id?: string
+    public readonly id: string
     public name: string
     // public students?: Array<any>
 

@@ -1,4 +1,4 @@
-export interface CreateCourseData {
+export interface CourseData {
     name: string
     students?: Array<any>
 }

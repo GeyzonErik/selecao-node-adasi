@@ -32,4 +32,26 @@ export class pgCourseRepository implements CourseRepository {
 
         return course
     }
+
+    async updateCourse(courseId: string, course: Course) {
+        const updatedCourse = await this.prismaClient.course.update({
+            where: {
+                id: courseId
+            },
+            data: {
+                ...course
+            }
+
+        })
+
+        return updatedCourse
+    }
+
+    async deleteCourse(courseId: string) {
+        await this.prismaClient.course.delete({
+            where: {
+                id: courseId
+            }
+        })
+    }
 }

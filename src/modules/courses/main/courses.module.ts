@@ -3,8 +3,8 @@ import { PrismaModule } from 'src/modules/prisma/prisma.module';
 import { CoursesController } from '../presentation/controllers';
 import { CourseRepository } from '../data/contracts';
 import { pgCourseRepository } from '../infra/repositories';
-import { CreateCourse, GetCourseById, GetCourses } from '../domain/usecases';
-import { CreateCourseService, GetCourseByIdService, GetCoursesService } from '../data/services';
+import { CreateCourse, DeleteCourse, GetCourseById, GetCourses, UpdateCourse } from '../domain/usecases';
+import { CreateCourseService, DeleteCourseService, GetCourseByIdService, GetCoursesService, UpdateCourseService } from '../data/services';
 
 @Module({
     controllers: [CoursesController],
@@ -12,7 +12,9 @@ import { CreateCourseService, GetCourseByIdService, GetCoursesService } from '..
         { provide: CourseRepository, useClass: pgCourseRepository },
         { provide: CreateCourse, useClass: CreateCourseService },
         { provide: GetCourses, useClass: GetCoursesService },
-        { provide: GetCourseById, useClass: GetCourseByIdService }
+        { provide: GetCourseById, useClass: GetCourseByIdService },
+        { provide: UpdateCourse, useClass: UpdateCourseService },
+        { provide: DeleteCourse, useClass: DeleteCourseService }
     ],
     imports: [PrismaModule],
 })
