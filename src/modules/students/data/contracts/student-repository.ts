@@ -5,4 +5,5 @@ export abstract class StudentRepository {
     getAllStudents: () => Promise<Array<Student>>;
     getStudentByCpf: (studentCpf: string) => Promise<Student>
     updateStudent: (studentCpf: string, updateStudentData: UpdateStudentData) => Promise<Student>
+    deleteStudent: (studentCpf: string) => Promise<void>
 }

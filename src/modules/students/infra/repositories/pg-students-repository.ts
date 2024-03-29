@@ -65,28 +65,13 @@ export class pgStudentRepository implements StudentRepository {
         })
 
         return updatedStudent;
+    }
 
-        // const courseIds = courses.map(course => ({ id: course.id }))
-        
-        // if(courseIds.length > 0) {
-        //     const updatedStudent = await this.prismaCliente.student.create({
-        //         data: {
-        //             ...data,
-        //             courses: {
-        //                 connect: courseIds
-        //             }
-        //         }
-        //     })
-            
-        //     return updatedStudent;
-        // }
-
-        // const updatedStudent = await this.prismaCliente.student.create({
-        //     data: {
-        //         ...data
-        //     }
-        // })
-
-        // return updatedStudent;
+    async deleteStudent(studentCpf: string) {
+        await this.prismaCliente.student.delete({
+            where: {
+                cpf: studentCpf
+            }
+        })
     }
 }
