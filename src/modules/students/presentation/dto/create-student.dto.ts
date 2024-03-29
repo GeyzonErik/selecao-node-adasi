@@ -17,8 +17,7 @@ export class createStudentDto implements StudentData{
     name: string;
 
     @ApiProperty({ example: [{
-        id: '9ae2cc4b-b574-48ca-a516-780c68902ec7',
-        name: 'NodeApi com NestJS Avançado' 
+        id: '9ae2cc4b-b574-48ca-a516-780c68902ec7'
     }]})
     @IsOptional()
     courses?: Array<Course>;
