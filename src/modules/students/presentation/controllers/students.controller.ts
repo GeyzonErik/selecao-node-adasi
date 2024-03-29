@@ -1,6 +1,6 @@
-import { Body, Controller, HttpStatus, Post, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Patch, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { CreateStudent } from "../../domain/usecases";
+import { CreateStudent, GetStudents } from "../../domain/usecases";
 import { Response } from "express";
 import { createStudentDto } from "../dto";
 
@@ -8,7 +8,8 @@ import { createStudentDto } from "../dto";
 @ApiTags('Students')
 export class StudentsController {
     constructor(
-        private readonly createStudent: CreateStudent
+        private readonly createStudent: CreateStudent,
+        private readonly getStudents: GetStudents
     ) { }
 
     @Post()
@@ -20,4 +21,23 @@ export class StudentsController {
             throw error
         }
     }
+
+    @Get()
+    async get(@Res() res: Response) {
+        try {
+            const students = await this.getStudents.execute()
+            res.status(HttpStatus.OK).send(students)
+        } catch(error) {
+            throw error
+        }
+    }
+
+    @Get(':cpf')
+    async getByCpf() {}
+
+    @Patch(':cpf')
+    async update() {}
+
+    @Delete()
+    async delete() {}
 }

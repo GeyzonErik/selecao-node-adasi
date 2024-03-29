@@ -32,4 +32,10 @@ export class pgStudentRepository implements StudentRepository {
         })
 
     }
+
+    async getAllStudents() {
+        const students = await this.prismaCliente.student.findMany();
+
+        return students;
+    }
 }
