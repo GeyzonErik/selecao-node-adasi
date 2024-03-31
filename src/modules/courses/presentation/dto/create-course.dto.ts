@@ -4,6 +4,6 @@ import { IsNotEmpty } from "class-validator";
 
 export class CreateCourseDTO implements CourseData {
     @ApiProperty({example: 'NodeApi com NestJS'})
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'nome' })
     name: string
 }
