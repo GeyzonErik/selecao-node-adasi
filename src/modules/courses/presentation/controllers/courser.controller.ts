@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
 import { CreateCourseDTO, UpdateCourseDto } from "../dto";
 import { CreateCourse, DeleteCourse, GetCourseById, GetCourses, UpdateCourse } from "../../domain/usecases";
+import { RegisterNotFound } from "src/modules/chore/errors";
 
 @Controller('Courses')
 @ApiTags('Courses')
@@ -41,6 +42,9 @@ export class CoursesController {
             const course = await this.getCourseById.execute(id);
             res.status(HttpStatus.OK).send(course)
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
@@ -51,6 +55,9 @@ export class CoursesController {
             const updatedCourse = await this.updateCourse.execute(id, updateCourseDto);
             res.status(HttpStatus.OK).send(updatedCourse)
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
@@ -61,6 +68,9 @@ export class CoursesController {
             await this.deleteCourse.execute(id);
             res.status(HttpStatus.OK).send()
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }

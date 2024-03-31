@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { DeleteCourse } from "../../domain/usecases";
 import { CourseRepository } from "../contracts";
+import { RegisterNotFound } from "src/modules/chore/errors";
 
 @Injectable()
 export class DeleteCourseService implements DeleteCourse {
@@ -10,6 +11,10 @@ export class DeleteCourseService implements DeleteCourse {
 
     async execute(courseId: string): Promise<void> {
         const course =  await this.courseRepository.getCourseById(courseId);
+
+        if(!course) {
+            throw new RegisterNotFound('curso')
+        }
 
         await this.courseRepository.deleteCourse(course.id)
     }
