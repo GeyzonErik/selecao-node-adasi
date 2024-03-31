@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
 import { CreateAssignmentDTO, UpdateAssignmentDto } from "../dto";
 import { CreateAssignment, DeleteAssignment, GetAllAssignments, GetAssignmentById, UpdateAssignment } from "../../domain/usecases";
+import { RegisterNotFound } from "src/modules/chore/errors";
 
 @Controller('Assignments')
 @ApiTags('Assignments')
@@ -41,6 +42,9 @@ export class AssignmentsController {
             const assignment = await this.getAssignmentById.execute(id)
             res.status(HttpStatus.OK).send(assignment)
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
@@ -51,6 +55,9 @@ export class AssignmentsController {
             const updatedAssignment = await this.updateAssignment.execute(id, updateAssignmentDto);
             res.status(HttpStatus.OK).send(updatedAssignment);
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
@@ -61,6 +68,9 @@ export class AssignmentsController {
             await this.deleteAssignment.execute(id);
             res.status(HttpStatus.OK).send()
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
