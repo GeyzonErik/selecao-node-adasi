@@ -1,73 +1,81 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Node-Adasi
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Solução para o [Desafio Node](https://github.com/BrSoftMakers/desafio-junior-1) da Adasi
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A aplicação consiste em um CRUD de gerenciamento de cursos/estudantes.
+## 🚀 Começando
 
-## Description
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+#### 📋 Pré-requisitos
 
-## Installation
+Antes de iniciarmos verdadeiramento o projeto, é necessario que você tenha algumas coisas intaldas em sua maquina:
 
-```bash
-$ npm install
+- 🐋 Docker: [Windows](https://docs.docker.com/desktop/install/windows-install/) | [Linux](https://docs.docker.com/desktop/install/linux-install/) | [MacOs](https://docs.docker.com/desktop/install/mac-install/)
+
+- 🍀 NodeJs(18.18 ou superior): [Instalação](https://nodejs.org/en/download/)
+
+- ♦️ Git: [Windows](https://git-scm.com/download/win) | [Linux](https://git-scm.com/download/linux) | [MacOs](https://git-scm.com/download/mac)
+
+#### 🔧 Instalação
+
+Para usar o projeto em sua maquina basta apenas seguir o passo-a-passo a baixo:
+
+#1 Clonagem do repositorio
+
+- Abra o Git Bash na pasta onde deseja clonar o repositorio
+- Digite o seguinte comando e execute:
+
+```
+git clone https://github.com/GeyzonErik/selecao-node-adasi.git
 ```
 
-## Running the app
+#### 🏠 Variáveis de Ambiente
 
-```bash
-# development
-$ npm run start
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env da pasta raiz:
 
-# watch mode
-$ npm run start:dev
+`DB_USER=[db_user]`
 
-# production mode
-$ npm run start:prod
+`DB_PASSWORD=[db_password]`
+
+`DB_NAME=[db_name]`
+
+`DATABASE_URL="postgresql://[db_user]:[db_password]@localhost:5432/[db_name]"`
+
+> Lembre de substituir os valores para os desejados
+
+## 💾 Executando o projeto
+
+Agora que o projeto está devidamente instalado em sua maquina basta seguir as seguintes instruções:
+
+#0 Passo exclusivo pra Windows e Mac:
+
+- Certifique de que o Docker Desktop está instalado e aberto em sua maquina
+
+#1 Executando projeto
+
+Abra a pasta raiz do projeto em um terminal de sua preferencia
+
+> Recomendo o [Powershell](https://github.com/PowerShell/PowerShell/releases/) no Windows
+
+Com a pasta aberta no terminal, execute o seguinte comando:
+
+```
+docker compose up --build
 ```
 
-## Test
+O projeto deve criar um container no Docker, e logo estará disponivel para visualização em:
 
-```bash
-# unit tests
-$ npm run test
+- localhost:3000/docs/api
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+## 🛠️ Construído com
 
-## Support
+Principais ferramentas utilizadas no projeto:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- [TypeScript](https://www.typescriptlang.org/): Principal linguage da aplicação
+- [npm](https://www.npmjs.com/): Gerenciador de dependência
+- [Docker](https://www.docker.com/): Conteinerização de toda aplicação
+- [NestJs](https://docs.nestjs.com/): Construção da API
+- [Swagger](https://swagger.io/): Documentação da API
+- [PrimsaORM](https://www.prisma.io/): Mediador entre API e o Banco de Dados
