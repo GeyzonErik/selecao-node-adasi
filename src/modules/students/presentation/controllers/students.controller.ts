@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { CreateStudent, DeleteStudent, GetStudentByCpf, GetStudents, UpdateStudent } from "../../domain/usecases";
 import { Response } from "express";
 import { createStudentDto } from "../dto";
 import { UpdateStudentDto } from "../dto/update-student.dto";
+import { RegisterInUse, RegisterNotFound } from "src/modules/chore/errors";
 
 @Controller('Students')
 @ApiTags('Students')
@@ -22,6 +23,12 @@ export class StudentsController {
             await this.createStudent.execute(createStudentDto)
             res.status(HttpStatus.CREATED).send()
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof RegisterInUse) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
@@ -42,6 +49,9 @@ export class StudentsController {
             const student = await this.getStudentByCpf.execute(cpf);
             res.status(HttpStatus.OK).send(student);
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
@@ -52,6 +62,12 @@ export class StudentsController {
             const updatedStudent = await this.updateStudent.execute(cpf, updateStudentDto)
             res.status(HttpStatus.OK).send(updatedStudent);
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof RegisterInUse) {
+                throw new BadRequestException(error.message)
+            }
             throw(error)
         }
     }
@@ -62,6 +78,9 @@ export class StudentsController {
             await this.deleteStudent.execute(cpf)
             res.status(HttpStatus.OK).send()
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }

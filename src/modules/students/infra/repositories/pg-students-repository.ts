@@ -52,15 +52,29 @@ export class pgStudentRepository implements StudentRepository {
         return student
     }
 
+    async getStudentByRegister(studentRegister: string) {
+        const student = await this.prismaCliente.student.findUnique({
+            where: {
+                register: studentRegister
+            }
+        })
+
+        return student
+    }
+
     async updateStudent(studentCpf: string, updateStudentData: UpdateStudentData) {
         const { courses, ...data} = updateStudentData
+        const courseIds = courses.map(course => ({ id: course.id }))
 
         const updatedStudent = await this.prismaCliente.student.update({
             where: {
                 cpf: studentCpf
             },
             data: {
-                ...data
+                ...data,
+                courses: {
+                    connect: courseIds
+                }
             }
         })
 

@@ -5,7 +5,7 @@ import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class UpdateStudentDto implements UpdateStudentData {
     @ApiProperty({ example: 'Jorge Amado' })
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'nome' })
     name: string;
 
     @ApiProperty({ example: [{
