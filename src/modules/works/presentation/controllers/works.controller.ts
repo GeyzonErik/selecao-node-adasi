@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
 import { CreateWork, DeleteWork, GetAllWorks, GetWorkById, UpdateWork } from "../../domain/usecases";
 import { CreateWorkDto, UpdateWorkDto } from "../dto";
+import { HourError, HourExtrapolatedError, ToleranceError } from "../../domain/errors";
+import { RegisterNotFound } from "src/modules/chore/errors";
 
 @Controller('Works')
 @ApiTags('Works')
@@ -21,6 +23,18 @@ export class WorksController {
             await this.createWork.execute(createWorkDto);
             res.status(HttpStatus.CREATED).send();
         } catch(error) {
+            if(error instanceof HourError) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof HourExtrapolatedError) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof ToleranceError) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error;
         }
     }
@@ -41,6 +55,9 @@ export class WorksController {
             const work = await this.getWorkById.execute(id);
             res.status(HttpStatus.OK).send(work);
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error;
         }
     }
@@ -51,6 +68,18 @@ export class WorksController {
             const updatedWork = await this.updateWork.execute(id, updateWorkDto);
             res.status(HttpStatus.OK).send(updatedWork);
         } catch(error) {
+            if(error instanceof HourError) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof HourExtrapolatedError) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof ToleranceError) {
+                throw new BadRequestException(error.message)
+            }
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }
@@ -61,6 +90,9 @@ export class WorksController {
             await this.deleteWork.execute(id);
             res.status(HttpStatus.OK).send();
         } catch(error) {
+            if(error instanceof RegisterNotFound) {
+                throw new BadRequestException(error.message)
+            }
             throw error
         }
     }

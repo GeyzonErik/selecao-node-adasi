@@ -1,19 +1,23 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { UpdateWorkData } from "../../domain/models";
+import { IsNotEmpty } from "class-validator";
 
 export class UpdateWorkDto implements UpdateWorkData {
-    @ApiProperty()
+    @ApiProperty({ example: '2024-03-31' })
+    @IsNotEmpty()
     date: Date;
 
-    @ApiProperty()
+    @ApiProperty({ example: '2024-03-31T10:00' })
+    @IsNotEmpty()
     appointmentStart: Date;
 
-    @ApiProperty()
+    @ApiProperty({ example: '2024-03-31T16:00' })
+    @IsNotEmpty()
     appointmentEnd: Date;
 
-    @ApiProperty({ required: false })
+    @ApiProperty({ required: false, example: '2024-03-31T10:15' })
     startHour?: Date;
 
-    @ApiProperty({ required: false })
+    @ApiProperty({ required: false, example: '2024-03-31T15:00' })
     endHour?: Date;
 }
