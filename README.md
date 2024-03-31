@@ -1,6 +1,6 @@
 # Node-Adasi
 
-Solução para o [Desafio Node](https://github.com/BrSoftMakers/desafio-junior-1) da Adasi
+Solução para o [Desafio Node](https://github.com/adasisoftware/selecao-node-adasi) da Adasi
 
 A aplicação consiste em um CRUD de gerenciamento de cursos/estudantes.
 ## 🚀 Começando
@@ -9,7 +9,7 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 #### 📋 Pré-requisitos
 
-Antes de iniciarmos verdadeiramento o projeto, é necessario que você tenha algumas coisas intaldas em sua maquina:
+Antes de iniciarmos verdadeiramento o projeto, é necessario que você tenha algumas coisas instaladas em sua maquina:
 
 - 🐋 Docker: [Windows](https://docs.docker.com/desktop/install/windows-install/) | [Linux](https://docs.docker.com/desktop/install/linux-install/) | [MacOs](https://docs.docker.com/desktop/install/mac-install/)
 
