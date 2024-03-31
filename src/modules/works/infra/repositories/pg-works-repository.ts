@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { WorkRepository } from "../../data/contracts";
-import { WorkData } from "../../domain/models";
+import { UpdateWorkData, WorkData } from "../../domain/models";
 import { PrismaService } from "src/modules/prisma/prisma.service";
 
 @Injectable()
@@ -9,7 +9,7 @@ export class pgWorkRepository implements WorkRepository {
         private readonly prismaClient: PrismaService
     ) {}
 
-    async create(workData: WorkData) {
+    async create(workData: WorkData) { 
         await this.prismaClient.works.create({
             data: {
                 ...workData,
@@ -44,15 +44,13 @@ export class pgWorkRepository implements WorkRepository {
         return work
     }
 
-    async update(workId: string, workData: WorkData) {
+    async update(workId: string, updateWorkData: UpdateWorkData) {
         const updatedWork = await this.prismaClient.works.update({
             where: {
                 id: workId
             },
             data: {
-                ...workData,
-                assignment: { connect: { id: workData.assignment.id } },
-                student: { connect: { cpf: workData.student.cpf } }
+                ...updateWorkData,
             },
             include: {
                 assignment: true,
